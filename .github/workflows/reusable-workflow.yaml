@@ -1,0 +1,38 @@
+name: Reusable-Workflow
+on:
+  workflow_call:
+      inputs:
+          working_directory:
+              description: 'The working directory for the Terraform configuration'
+              required: false
+              type: string
+              default: "."
+          terraform_version:
+            description: Terraform CLI version supplied by the caller
+            required: true
+            type: string
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+
+      - name: checkout code
+        uses: actions/checkout@v5
+
+      - name: set up terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ inputs.terraform_version }}
+
+      - name: Initialize
+        run: terraform init
+
+      - name: Validate
+        run: terraform validate
+
+      - name: Plan
+        run: terraform plan
+        

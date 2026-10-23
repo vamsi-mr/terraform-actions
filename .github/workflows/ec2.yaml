@@ -1,0 +1,11 @@
+name: ec2-creation
+on:
+  push:
+  workflow_dispatch:
+jobs:
+    terraform:
+      uses: ./.github/workflows/reusable-workflow.yaml
+      with:
+        working_directory: .
+        terraform_version: "1.9.8"
+        
