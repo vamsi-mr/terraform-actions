@@ -6,6 +6,6 @@ jobs:
     terraform:
       uses: ./.github/workflows/reusable-workflow.yaml
       with:
-        working_directory: .
+        working_directory: EC2
         terraform_version: "1.9.8"
         
