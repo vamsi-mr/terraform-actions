@@ -11,6 +11,15 @@ on:
             description: Terraform CLI version supplied by the caller
             required: true
             type: string
+          aws_role_to_assume:
+            description: AWS IAM role ARN to assume using GitHub OIDC
+            required: true
+            type: string
+          aws_region:
+            description: AWS region for credentials
+            required: false
+            type: string
+            default: us-east-1
 jobs:
   plan:
     runs-on: ubuntu-latest
@@ -26,6 +35,12 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ inputs.terraform_version }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ inputs.aws_role_to_assume }}
+          aws-region: ${{ inputs.aws_region }}
 
       - name: Initialize
         run: terraform init

@@ -2,10 +2,15 @@ name: ec2-creation
 on:
   push:
   workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
 jobs:
     terraform:
       uses: ./.github/workflows/reusable-workflow.yaml
       with:
         working_directory: EC2
         terraform_version: "1.10.0"
+        aws_role_to_assume: ${{ vars.AWS_ROLE_ARN }}
+        aws_region: us-east-1
         
