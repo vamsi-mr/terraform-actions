@@ -7,7 +7,8 @@ permissions:
   id-token: write
 jobs:
     terraform:
-      uses: ./.github/workflows/reusable-workflow.yaml
+      #uses: ./.github/workflows/reusable-workflow.yaml
+      uses: vamsi-mr/terraform-reusable-workflows/.github/workflows/common.yaml@main
       with:
         working_directory: EC2
         terraform_version: "1.10.0"
